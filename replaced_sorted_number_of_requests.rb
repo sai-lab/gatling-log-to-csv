@@ -1,6 +1,6 @@
 class Log
   def initialize(name)
-    @file = File.open(name+".csv", "w+")
+    @file = File.open("../"+name+".csv", "w+")
   end
   def Puts(words)
     @file.puts(words)
@@ -12,7 +12,7 @@ end
 
 number_log = Log.new("replaced_sorted_number_of_requests")
 
-File.open("sorted_number_of_requests.csv"){|f|
+File.open("../sorted_number_of_requests.csv"){|f|
   f.each_line{|line|
     words = line.split(" ")
     for i in 0..10

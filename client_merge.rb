@@ -15,17 +15,20 @@ class Log
 end
 
 accesses = []
-ARGV.each_with_index do |arg, arg_index|
+arg_index = 0
+ARGV.each do |arg|
   if arg_index == 0
+    arg_index = arg_index + 1
     next
   end
-  accesses.push(arg)
+  accesses.push(arg.to_i)
+  arg_index = arg_index + 1
 end
 
 # accesses = [399000, 299000, 199000]
 # リクエスト番号の競合を避けるためにクライアント2以降のリクエスト番号を
 # クライアント1からのリクエスト番号に合わせる
-(1..arg_index-1).each{|j|
+(1..arg_index-2).each{|j|
   accesses[j] = accesses[j] + accesses[j-1]
 }
 
@@ -35,12 +38,20 @@ request_log = Log.new("request")
 directories = `ls #{ARGV[0]}`
 index = 0
 for dir in directories.split("\n")
-  File.open(dir << "/simulation.log"){|f|
+  File.open("../client-requests/" + dir + "/simulation.log"){|f|
+    p "../client-requests/" + dir + "/simulation.log"
     f.each_line{|line|
       words = line.split("\t")
+      if words[0] == "RUN"
+        p words
+        next
+      end
       edited_words = words
       if index > 0
         # クライアント2以降なら、これまでの総リクエスト数を加算
+        if words[2] == ""
+          p words
+        end
         access_num = words[2].to_i + accesses[index - 1]
         edited_words[2] = access_num.to_s
       end
@@ -57,5 +68,5 @@ for dir in directories.split("\n")
   index = index + 1
 end
 
-user_log.close
-request_log.close
+user_log.Close()
+request_log.Close()
