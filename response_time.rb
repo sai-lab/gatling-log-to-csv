@@ -16,8 +16,8 @@ response_time_ko_log = Log.new("response_time_ko")
 File.open("../request.csv"){|f|
   f.each_line{|line|
     words = line.split(",")
-    start = Time.at(words[5].to_i / 1000.0).strftime("%H:%M:%S.%3N")
-    time = words[6].to_i / 1000.0 - words[5].to_i / 1000.0
+    start = (words[5].to_i - ARGV[0].to_i) / 1000.0
+    time = (words[6].to_i - words[5].to_i) / 1000.0
     data = [start, time.to_s].join(",")
     case words[7]
     when "OK"

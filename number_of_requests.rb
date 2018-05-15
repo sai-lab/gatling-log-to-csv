@@ -17,10 +17,12 @@ File.open("../user.csv"){|f|
     words = line.split(",")
     case words[3]
     when "START"
-      time = Time.at(words[4].to_i/ 1000.0).strftime("%H:%M:%S")
-      number_log.Puts(time)
+      #time = Time.at(words[4].to_i/ 1000.0).strftime("%H:%M:%S")
+      elapsed_time = (words[4].to_i - ARGV[0].to_i) / 1000.0
+      number_log.Puts(elapsed_time)
     end
   }
+
 }
 
 number_log.Close()
