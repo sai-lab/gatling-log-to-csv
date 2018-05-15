@@ -1,6 +1,11 @@
 #!/bin/zsh
 # 引数：各クライアントの結果を全て入れたディレクトリ名 クライアント1の総リクエスト数 クライアント2の総リクエスト数 ...
 
+# 開始時間をbench.csvに出力
+dir=`ls ../$1 | head -1`
+start=`head -1 ../$1/$dir/simulation.log | cut -f5`
+echo `$start > ../start_time.csv`
+
 # user.csvとrequest.csvを生成
 echo "run client_merge.rb"
 ruby client_merge.rb $@
@@ -21,3 +26,7 @@ rm ../sorted_number_of_requests.csv
 mv ../replaced_sorted_number_of_requests.csv ../number_of_requests.csv
 
 # --- 応答時間 ---
+# 成功したリクエストの応答時間をresponse_time_ok.csvに
+# 失敗したリクエストの応答時間をresponse_time_ko.csvに出力
+echo "run response_time.rb"
+ruby response_time.rb
