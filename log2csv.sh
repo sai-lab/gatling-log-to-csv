@@ -35,3 +35,10 @@ sort -g ../response_time_ko.csv > ../sorted_response_time_ko.csv
 rm ../response_time_ok.csv ../response_time_ko.csv
 mv ../sorted_response_time_ok.csv ../response_time_ok.csv
 mv ../sorted_response_time_ko.csv ../response_time_ko.csv
+
+# --- アクティブユーザ数のcsvを生成 ---
+echo "run number_of_active_users.rb"
+ruby number_of_active_users.rb $start
+sort -g ../number_of_active_users.csv > ../sorted_number_of_active_users.csv
+rm ../number_of_active_users.csv
+mv ../sorted_number_of_active_users.csv ../number_of_active_users.csv

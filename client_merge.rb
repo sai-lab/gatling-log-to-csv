@@ -25,7 +25,6 @@ ARGV.each do |arg|
   arg_index = arg_index + 1
 end
 
-# accesses = [399000, 299000, 199000]
 # リクエスト番号の競合を避けるためにクライアント2以降のリクエスト番号を
 # クライアント1からのリクエスト番号に合わせる
 (1..arg_index-2).each{|j|
@@ -43,7 +42,6 @@ for dir in directories.split("\n")
     f.each_line{|line|
       words = line.split("\t")
       if words[0] == "RUN"
-        p words
         next
       end
       edited_words = words
