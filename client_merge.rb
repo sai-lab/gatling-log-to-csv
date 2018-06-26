@@ -37,8 +37,8 @@ request_log = Log.new("request")
 directories = `ls #{ARGV[0]}`
 index = 0
 for dir in directories.split("\n")
-  File.open("../client-requests/" + dir + "/simulation.log"){|f|
-    p "../client-requests/" + dir + "/simulation.log"
+  File.open(ARGV[0] + '/' + dir + "/simulation.log"){|f|
+    p ARGV[0] + dir + "/simulation.log"
     f.each_line{|line|
       words = line.split("\t")
       if words[0] == "RUN"
