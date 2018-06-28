@@ -2,9 +2,11 @@
 # 引数：各クライアントの結果を全て入れたディレクトリ名 クライアント1の総リクエスト数 クライアント2の総リクエスト数 ...
 
 # 開始時間をbench.csvに出力
-dir=`ls $1 | head -1`
-start=`head -1 $1/$dir/simulation.log | cut -f5`
-echo $start > ../start_time.csv
+ls $1 | while read dir
+do
+  head -1 $1/$dir/simulation.log | cut -f5
+done  | sort -n | head -1 > ../start_time.csv
+start=`cat ../start_time.csv`
 
 # user.csvとrequest.csvを生成
 echo "run client_merge.rb"
