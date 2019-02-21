@@ -23,5 +23,5 @@ dir/
 # 実行例
 
 ```
-./log2csv.sh ../client-requests 399000 299000 199000
+./log2csv.sh /path/to/simulation_log_dir
 ```
