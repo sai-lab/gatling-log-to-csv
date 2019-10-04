@@ -13,8 +13,8 @@ echo "run client_merge.rb"
 ls $1 | while read dir
 do
   grep -c REQUEST $1/$dir/simulation.log
-done > req_sums
-ruby client_merge.rb $1 `cat req_sums`
+done > ../req_sums.csv
+ruby client_merge.rb $1 `cat ../req_sums.csv`
 
 # --- リクエスト数のcsvを生成 ----
 # number_of_requests.csvを生成
