@@ -33,6 +33,7 @@ end
 
 user_log = Log.new("user")
 request_log = Log.new("request")
+group_log = Log.new("group")
 
 directories = `ls #{ARGV[0]}`
 index = 0
@@ -60,6 +61,9 @@ for dir in directories.split("\n")
       when "REQUEST"
         # REQUESTのログならrequest.csvに追加
         request_log.Puts(edited_words.join(","))
+      when "GROUP"
+        # GROUPのログならgroup.csvに追加
+        group_log.Puts(edited_words.join(","))
       end
     }
   }
@@ -68,3 +72,4 @@ end
 
 user_log.Close()
 request_log.Close()
+group_log.Close()
