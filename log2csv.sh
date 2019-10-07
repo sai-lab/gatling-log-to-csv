@@ -12,7 +12,7 @@ start=`cat ../start_time.csv`
 echo "run client_merge.rb"
 ls $1 | while read dir
 do
-  grep -c REQUEST $1/$dir/simulation.log
+  grep -c USER $1/$dir/simulation.log | awk '{print $1 / 2}'
 done > ../req_sums.csv
 ruby client_merge.rb $1 `cat ../req_sums.csv`
 

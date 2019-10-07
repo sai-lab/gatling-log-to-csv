@@ -36,6 +36,7 @@ request_log = Log.new("request")
 group_log = Log.new("group")
 
 directories = `ls #{ARGV[0]}`
+user_num = 0
 index = 0
 for dir in directories.split("\n")
   File.open(ARGV[0] + '/' + dir + "/simulation.log"){|f|
@@ -46,20 +47,29 @@ for dir in directories.split("\n")
         next
       end
       edited_words = words
-      if index > 0
-        # クライアント2以降なら、これまでの総リクエスト数を加算
-        if words[2] == ""
-          p words
-        end
-        access_num = words[2].to_i + accesses[index - 1]
-        edited_words[2] = access_num.to_s
-      end
       case edited_words[0]
       when "USER"
         # USERのログならuser.csvに追加
+        if index > 0
+          # クライアント2以降なら、これまでの総リクエスト数を加算
+          if words[2] == ""
+            p words
+          end
+          access_num = words[2].to_i + accesses[index - 1]
+          edited_words[2] = access_num.to_s
+        end
+        user_num = edited_words[2].to_i
         user_log.Puts(edited_words.join(","))
       when "REQUEST"
         # REQUESTのログならrequest.csvに追加
+        if index > 0
+          # クライアント2以降なら、これまでの総リクエスト数を加算
+          if words[2] == ""
+            p words
+          end
+          access_num = words[2].to_i + accesses[index - 1]
+          edited_words[2] = access_num.to_s
+        end
         request_log.Puts(edited_words.join(","))
       when "GROUP"
         # GROUPのログならgroup.csvに追加
