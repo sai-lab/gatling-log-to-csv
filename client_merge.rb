@@ -36,7 +36,7 @@ request_log = Log.new("request")
 group_log = Log.new("group")
 
 directories = `ls #{ARGV[0]}`
-user_num = 0
+group_flag = false
 index = 0
 for dir in directories.split("\n")
   File.open(ARGV[0] + '/' + dir + "/simulation.log"){|f|
@@ -58,8 +58,11 @@ for dir in directories.split("\n")
           access_num = words[2].to_i + accesses[index - 1]
           edited_words[2] = access_num.to_s
         end
-        user_num = edited_words[2].to_i
         user_log.Puts(edited_words.join(","))
+        if group_flag and edited_words[3].match("END") then
+          group_log.Puts(edited_words.join(","))
+          group_flag = false
+        end
       when "REQUEST"
         # REQUESTのログならrequest.csvに追加
         if index > 0
@@ -74,6 +77,7 @@ for dir in directories.split("\n")
       when "GROUP"
         # GROUPのログならgroup.csvに追加
         group_log.Puts(edited_words.join(","))
+        group_flag = true
       end
     }
   }
