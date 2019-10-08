@@ -48,3 +48,9 @@ ruby number_of_active_users.rb $start
 sort -g ../number_of_active_users.csv > ../sorted_number_of_active_users.csv
 rm ../number_of_active_users.csv
 mv ../sorted_number_of_active_users.csv ../number_of_active_users.csv
+
+echo "run group_time.rb"
+ruby group_time.rb $start
+sort -g ../response_time_group.csv > ../sorted_response_time_group.csv
+rm ../response_time_group.csv
+mv ../sorted_response_time_group.csv ../response_time_group.csv
